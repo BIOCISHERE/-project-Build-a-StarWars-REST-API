@@ -48,6 +48,19 @@ class Character(db.Model):
             "eye_color": self.eye_color
         }
 
+class FavCharacter(db.Model): #actualizar
+    id = db.Column(db.Integer, primary_key=True)
+    id_of_fav = db.Column(db.Integer)
+
+    def __repr__(self):
+        return '<FavCharacter %r>' % self.id
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "id_of_fav": self.id_of_fav
+        }    
+
 class Planet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), unique=True, nullable=False)
@@ -69,6 +82,19 @@ class Planet(db.Model):
             "orbital_period": self.orbital_period,
             "rotation_period": self.rotation_period,
             "diameter": self.diameter
+        }
+
+class FavPlanet(db.Model): # actualizar
+    id = db.Column(db.Integer, primary_key=True)
+    id_of_fav = db.Column(db.Integer)
+
+    def __repr__(self):
+        return '<FavPlanet %r>' % self.id
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "id_of_fav": self.id_of_fav
         }    
 
 class Vehicle(db.Model):
@@ -79,3 +105,47 @@ class Vehicle(db.Model):
     cargo_capacity = db.Column(db.Integer, nullable=False)
     passangers = db.Column(db.Integer, nullable=False)
     vehicle_class = db.Column(db.String(120), nullable=False)
+
+    def __repr__(self):
+        return '<Vehicle %r>' % self.name
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "max_atmosphering_speed": self.max_atmosphering_speed,
+            "cost_in_credits": self.cost_in_credits,
+            "cargo_capacity": self.cargo_capacity,
+            "passangers": self.passangers,
+            "vehicle_class": self.vehicle_class
+        } 
+
+class FavVehicules(db.Model): # actualizr
+    id = db.Column(db.Integer, primary_key=True)
+    id_of_fav = db.Column(db.Integer)
+
+    def __repr__(self):
+        return '<FavVehicules %r>' % self.id
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "id_of_fav": self.id_of_fav
+        }    
+
+class Favorites(db.Model): # actualizar
+    id = db.Column(db.Integer, primary_key=True)
+    id_char = db.Column(db.Integer)
+    id_plan = db.Column(db.Integer)
+    id_vehic = db.Column(db.Integer)
+
+    def __repr__(self):
+        return '<Favorites %r>' % self.id
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "id_char": self.id_char,
+            "id_plan": self.id_plan,
+            "id_vehic": self.id_vehic
+        }    
