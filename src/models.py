@@ -33,6 +33,7 @@ class Character(db.Model):
     height = db.Column(db.Integer, nullable=False)
     skin_color = db.Column(db.String(120), nullable=False)
     eye_color = db.Column(db.String(120), nullable=False)
+    fav_characters = db.relationship('FavCharacter', lazy=True)
 
     def __repr__(self):
         return '<Character %r>' % self.name
@@ -50,7 +51,7 @@ class Character(db.Model):
 
 class FavCharacter(db.Model): #actualizar
     id = db.Column(db.Integer, primary_key=True)
-    id_of_fav = db.Column(db.Integer)
+    id_of_fav = db.Column(db.Integer, db.ForeignKey(Character.id))
 
     def __repr__(self):
         return '<FavCharacter %r>' % self.id
@@ -69,6 +70,7 @@ class Planet(db.Model):
     orbital_period = db.Column(db.Integer, nullable=False)
     rotation_period = db.Column(db.Integer, nullable=False)
     diameter = db.Column(db.Integer, nullable=False)
+    fav_planets = db.relationship('FavPlanet', lazy=True)
 
     def __repr__(self):
         return '<Planet %r>' % self.name
@@ -86,7 +88,7 @@ class Planet(db.Model):
 
 class FavPlanet(db.Model): # actualizar
     id = db.Column(db.Integer, primary_key=True)
-    id_of_fav = db.Column(db.Integer)
+    id_of_fav = db.Column(db.Integer, db.ForeignKey(Planet.id))
 
     def __repr__(self):
         return '<FavPlanet %r>' % self.id
@@ -105,6 +107,7 @@ class Vehicle(db.Model):
     cargo_capacity = db.Column(db.Integer, nullable=False)
     passangers = db.Column(db.Integer, nullable=False)
     vehicle_class = db.Column(db.String(120), nullable=False)
+    fav_vehicles = db.relationship('FavVehicules', lazy=True)
 
     def __repr__(self):
         return '<Vehicle %r>' % self.name
@@ -122,7 +125,7 @@ class Vehicle(db.Model):
 
 class FavVehicules(db.Model): # actualizr
     id = db.Column(db.Integer, primary_key=True)
-    id_of_fav = db.Column(db.Integer)
+    id_of_fav = db.Column(db.Integer, db.ForeignKey(Vehicle.id))
 
     def __repr__(self):
         return '<FavVehicules %r>' % self.id
