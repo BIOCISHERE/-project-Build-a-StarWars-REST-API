@@ -37,14 +37,57 @@ def sitemap():
     return generate_sitemap(app)
 
 @app.route('/user', methods=['GET'])
-def handle_hello():
+def get_user():
+    user = User.query.all()
+    all_user = list(map(lambda x: x.serialize(), user))
 
-    response_body = {
-        "msg": "Hello, this is your GET /user response "
-    }
+    return jsonify(all_user), 200
 
-    return jsonify(response_body), 200
+@app.route('/character', methods=['GET'])
+def get_character():
+    character = Character.query.all()
+    all_character = list(map(lambda x: x.serialize(), character))
 
+    return jsonify(all_character), 200
+
+@app.route('/planet', methods=['GET'])
+def get_planet():
+    planet = Planet.query.all()
+    all_planet = list(map(lambda x: x.serialize(), planet))
+
+    return jsonify(all_planet), 200
+
+@app.route('/vehicle', methods=['GET'])
+def get_vehicle():
+    vehicle = Vehicle.query.all()
+    all_vehicle = list(map(lambda x: x.serialize, vehicle))
+
+    return jsonify(all_vehicle), 200
+
+@app.route('/user/favorite', methods=['GET'])
+def get_user_fav():
+    user_fav = Favorites.query.all()
+    all_user_fav = list(map(lambda x: x.serialize(), user_fav))
+
+    return jsonify(all_user_fav), 200
+
+@app.route('/character/<int:character_id>', methods=['GET'])
+def get_character_id(character_id):
+    id_character = Character.query.get(character_id)
+
+    return jsonify(id_character.serialize()), 200
+
+@app.route('/planet/<int:planet_id>', methods=['GET'])
+def get_planet_id(planet_id):
+    id_planet = Planet.query.get(planet_id)
+
+    return jsonify(id_planet.serialize()), 200
+
+@app.route('/vehicle/<int:vehicle_id>', methods=['GET'])
+def get_vehicle_id(vehicle_id):
+    id_vehicle = Vehicle.query.get(vehicle_id)
+
+    return jsonify(id_vehicle.serialize()), 200
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
     PORT = int(os.environ.get('PORT', 3000))
